@@ -1,4 +1,4 @@
-package product.demoautotesting.po;
+package PO;
 
 import java.util.List;
 
@@ -9,177 +9,174 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.Select;
 
-public class PO_Register 
+public class PO_Register
 {
-    WebDriver driver;
-    public PO_Register(WebDriver driver)
-    {
-    	this.driver=driver;
-    }
-   
-    @FindBy(how=How.XPATH,using="//input[@type='text' and @placeholder='First Name']")
-    private WebElement txtbx_first_name;
-    public void enter_first_name(String firstName)
-    {
-    	txtbx_first_name.sendKeys(firstName);
-    }
-    
-    @FindBy(how=How.XPATH,using="//input[@type='text' and @placeholder='Last Name']")
-    private WebElement txtbx_last_name;
-    public void enter_last_name(String lastName)
-    {
-    	txtbx_last_name.sendKeys(lastName);
-    }
-    
-    @FindBy(how=How.XPATH,using="//textarea[@rows='3']")
-    private WebElement txtbx_address;
-    public void enter_address(String address)
-    {
-    	txtbx_address.sendKeys(address);
-    }
-    
-    @FindBy(how=How.XPATH,using="//input[@type='email']")
-    private WebElement txtbx_email_id;
-    public void enter_email_add(String email_id)
-    {
-    	txtbx_email_id.sendKeys(email_id);
-    }
-    @FindBy(how=How.XPATH,using="//input[@type='tel']")
-    private WebElement txtbx_phone;
-    public void enter_phone_no(String phoneNo)
-    {
-    	txtbx_phone.sendKeys(phoneNo);
-    }
-    @FindBy(how=How.XPATH,using="//input[@type='radio' and @class='ng-pristine ng-untouched ng-valid']")
-    private WebElement radio_btn_female;
-    public void click_radio_btn()
-    {
-    	radio_btn_female.click();
-    }
-    
-    @FindBy(how=How.XPATH,using="//input[@id='checkbox1']")
-    private WebElement check_bx_1;
-    public void click_check_bx_cricket()
-    {
-    	check_bx_1.click();
-    }
-    
-    @FindBy(how=How.XPATH,using="//input[@id='checkbox2']")
-    private WebElement check_bx_2;
-    public void click_check_bx_movie()
-    {
-    	check_bx_2.click();
-    }
-    @FindBy(how=How.XPATH,using="//input[@id='checkbox3']")
-    private WebElement check_bx_3;
-    public void click_check_bx_hocky()
-    {
-    	check_bx_3.click();
-    }
-    
-    @FindBy(how=How.XPATH,using="//div[@class='ui-autocomplete-multiselect ui-state-default ui-widget' and @id='msdd']")
-    private WebElement language;
-    public void select_language()
-    {
-    	language.click();
-    	List<WebElement> list=driver.findElements(By.xpath("//a[@style='text-decoration:none' and @class='ui-corner-all']"));
-    	for(int i=0;i<list.size();i++)
-    	{
-    		WebElement element=list.get(i);
-    		String value=element.getText();
-    		if(value.equals("English"))
-    		{
-    			element.click();
-    		}
-    		System.out.println("values from dropdwn is : "+value);
-    		
-    	}
-    }
-    
-    @FindBy(how=How.XPATH,using="//select[contains(@id,Skills)][@class='form-control ng-pristine ng-valid ng-touched']")
-    private WebElement dropdwn_skills;
-    public void set_skills(String skills)
+    //initialize the driver
+	WebDriver driver;
+	
+	//parameterize the constructor 
+	public PO_Register(WebDriver d)
+	{
+		this.driver=d;
+	}
+	
+	//declare locators of PO_Register
+	@FindBy(how=How.XPATH,using="//input[@placeholder='First Name']")
+	private WebElement txtbox_firstName;
+	
+	@FindBy(how=How.XPATH,using="//input[@placeholder='Last Name']")
+	private WebElement txtbox_lastName;
+	
+	@FindBy(how=How.XPATH,using="//textarea[@rows='3']")
+	private WebElement txtbox_add;
+	
+	@FindBy(how=How.XPATH,using="//input[@type='email']")
+	private WebElement txtbox_email;
+	
+	@FindBy(how=How.XPATH,using="//input[@type='tel']")
+	private WebElement txtbox_tel;
+	
+	@FindBy(how=How.XPATH,using="//input[@value='FeMale']")
+	private WebElement radioButton_gender;
+	
+	@FindBy(how=How.ID,using="checkbox2")
+	private WebElement Checkbox_hobbies;
+	
+	@FindBy(how=How.XPATH,using="//div[@class='ui-autocomplete-multiselect ui-   state-default ui-widget']")
+	private WebElement Sel_Language;
+	
+	@FindBy(how=How.ID,using="Skills")
+	private WebElement Sel_skills;
+	
+	@FindBy(how=How.ID,using="countries")
+	private WebElement Sel_country;
+	
+	@FindBy(how=How.XPATH,using="//select[@class='select2-hidden-accessible']")
+	private WebElement Select_country;
+	
+	@FindBy(how=How.ID,using="yearbox")
+	private WebElement Sel_year;
+	
+	@FindBy(how=How.XPATH,using="//select[@placeholder='Month']")
+	private WebElement Sel_month;
+	
+	@FindBy(how=How.ID,using="daybox")
+	private WebElement Sel_day;
+	
+	@FindBy(how=How.ID,using="firstpassword")
+	private WebElement Sel_firstpassword;
+	
+	@FindBy(how=How.ID,using="secondpassword")
+	private WebElement Sel_secondpassword;
+	
+	@FindBy(how=How.ID,using="submitbtn")
+	private WebElement Click_submitbtn;
+	
+       //declare methods
+
+	public void SetFirstName(String FN)
+	{
+		txtbox_firstName.sendKeys(FN);
+	
+	}
+	
+	public void SetLastName(String LN)
+	{
+		txtbox_lastName.sendKeys(LN);
+	}
+	
+	public void SetAddress(String add)
+	{
+		txtbox_add.sendKeys(add);
+	}
+	
+	public void SetEmail(String email)
+	{
+		txtbox_email.sendKeys(email);
+	}
+	
+	
+	public void SetTelePhone(String tel)
+	{
+		txtbox_tel.sendKeys(tel);
+	}
+	
+	public void Setgender()
 	{
 		
-		dropdwn_skills.click();
-		Select select1=new Select(dropdwn_skills);
-		select1.selectByValue(skills);
+		radioButton_gender.click();
 	}
-    
-    @FindBy(how=How.XPATH,using="//select[@id='countries']")
-    private WebElement dropdwn_countries;
-    public void set_country(String country)
+	
+	public void SetHobbies()
 	{
-		Select select2=new Select(dropdwn_countries);
-		select2.selectByValue(country);
+		Checkbox_hobbies.click();
 	}
-    
-    @FindBy(how=How.XPATH,using="//span[@class='select2-selection select2-selection--single']")
-    private WebElement dropdwn_select_countries;
-    public void set_select_country(String select_country)
+	
+	public void SetLanguage(String lang)
 	{
-		Select select3=new Select(dropdwn_countries);
-		select3.selectByValue(select_country);
+		//driver.findElement(By.xpath("Sel_Language]")).click();
+		List<WebElement>langList=driver.findElements(By.xpath("//select[@type='text']"));
+		for(int i=0;i<1;i++)
+		{
+			WebElement element=langList.get(i);
+			element.getAttribute(lang);
+			System.out.println("value from drop down is:"+lang);
+		}
+		
 	}
-    
-    
-    @FindBy(how=How.XPATH,using="//select[@id='yearbox' and @placeholder='Year']")
-    private WebElement select_year;
-    public void set_select_year(String year)
+	
+	public void SetSkills(String skills)
 	{
-    	select_year.click();
-		Select select4=new Select(select_year);
-		select4.selectByValue(year);
+		Select sel=new Select(Sel_skills);
+		sel.selectByVisibleText(skills);
 	}
-    
-    @FindBy(how=How.XPATH,using="//select[@placeholder='Month']")
-    private WebElement select_month;
-    public void set_select_month(String month)
+	
+	public void SetCountry(String coun)
 	{
-		Select select5=new Select(select_month);
-		select5.selectByValue(month);
+		Select sel=new Select(Sel_country);
+		sel.selectByVisibleText(coun);
 	}
-    
-    @FindBy(how=How.XPATH,using="//select[@id='daybox']")
-    private WebElement select_date;
-    public void set_select_date(String date)
+	
+	public void SetCountries(String country1)
 	{
-		Select select5=new Select(select_date);
-		select5.selectByValue(date);
+		Select sel=new Select(Select_country);
+		sel.selectByVisibleText(country1);
+		
 	}
-    
-    @FindBy(how=How.XPATH,using="//input[@id='firstpassword']")
-    private WebElement select_first_password;
-    public void set_select_password1(String password1)
+	
+	public void SetYear(String year)
 	{
-    	select_first_password.sendKeys(password1);
+		Select sel=new Select(Sel_year);
+		sel.selectByVisibleText(year);
 	}
-    
-    @FindBy(how=How.XPATH,using="//input[@id='secondpassword']")
-    private WebElement select_second_password;
-    public void set_select_password2(String password2)
+	
+	public void SetMonth(String month)
 	{
-    	select_second_password.sendKeys(password2);
+		Select sel=new Select(Sel_month);
+		sel.selectByVisibleText(month);
+		
 	}
-    
-    @FindBy(how=How.XPATH,using="//input[@id='imagesrc']")
-    private WebElement choose_file;
-    public void set_choose_file()
-    {
-    	choose_file.sendKeys("C:\\Users\\krishna\\Desktop\\6949019-flowers-wallpaper-desktop.jpg");
-    }
-    
-    @FindBy(how=How.XPATH,using="//button[@id='submitbtn']")
-    private WebElement click_submit;
-    public void set_submit()
+	public void SetDay(String day)
 	{
-    	click_submit.click();
+		Select sel=new Select(Sel_day);
+		sel.selectByVisibleText(day);
 	}
-    
-    @FindBy(how=How.XPATH,using="//button[@id='Button1' and @value='Refresh']")
-    private WebElement click_refresh;
-    public void set_refresh()
+	
+	public void SetFirstPW(String Firstpw)
+	{  
+		Sel_firstpassword.sendKeys(Firstpw);
+	}
+	
+	public void SetSecondPW(String secondpw)
 	{
-    	click_refresh.click();
+		
+		Sel_secondpassword.sendKeys(secondpw);
 	}
+	
+	public void SetSubmitbtn()
+	{
+		
+		Click_submitbtn.click();
+	}
+	
 }
