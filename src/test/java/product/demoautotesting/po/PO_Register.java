@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Reporter;
 
 public class PO_Register 
 {
@@ -21,7 +22,12 @@ public class PO_Register
     private WebElement txtbx_first_name;
     public void enter_first_name(String firstName)
     {
-    	txtbx_first_name.sendKeys(firstName);
+    	try {
+    		txtbx_first_name.sendKeys(firstName);
+    	}catch(Exception e) {
+    		Reporter.log("Exception thrown", true);
+    	}
+    	
     }
     
     @FindBy(how=How.XPATH,using="//input[@type='text' and @placeholder='Last Name']")

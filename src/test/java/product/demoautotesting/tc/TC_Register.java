@@ -7,12 +7,11 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.visionit.po.PO_Register;
 
 public class TC_Register 
 {
-	static WebDriver driver;
-	PO_Register register=new PO_Register(driver);
+	 WebDriver driver;
+
 	
 	@BeforeMethod
 	public void open_url()
@@ -28,7 +27,7 @@ public class TC_Register
 	{
 		register=PageFactory.initElements(driver, PO_Register.class);
 		register.enter_first_name("Sneha");
-		/*register.enter_last_name("Funde");
+		register.enter_last_name("Funde");
 		register.enter_address("warje,pune");
 		register.enter_email_add("snehafunde7@gmail.com");
 		register.enter_phone_no("7262816854");
@@ -44,7 +43,7 @@ public class TC_Register
 		register.set_select_month("June");
 		register.set_select_date("10");
 		register.set_select_password1("Sneha123*");
-		register.set_select_password2("Sneha123*");*/
+		register.set_select_password2("Sneha123*");
 		register.set_choose_file();
 		//register.set_submit();
 		
