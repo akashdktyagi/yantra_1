@@ -1,5 +1,7 @@
 package product.ecommerce.ingrammicro.tc;
 
+import static org.testng.Assert.assertEquals;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -12,14 +14,78 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import product.demoautotesting.tc.TestingLog4J;
 
 public class HandlingMegaMenu {
-	private static final Logger LOG = LogManager.getLogger(TestingLog4J.class);
+	private static final Logger LOG = LogManager.getLogger(HandlingMegaMenu.class);
 
-	@Test
+	//@Test
+	public void ValidateSearch() {
+		
+		try {
+			String PRODUCT = "HP";
+			
+			//Browser Set Up and navigate
+			System.setProperty("webdriver.chrome.driver", "E:\\_AkashStuff\\Automation\\dependencies\\chromedriver\\chromedriver.exe");
+			WebDriver driver = new ChromeDriver();
+			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			driver.get("https://ca.ingrammicro.com/");//difference btw and naviogate/get
+			
+			//Checkpoint
+			String expected_title = "Computer and Technology Products - Services for Business to Business Needs - Ingram Micro";
+			String actual_title = driver.getTitle();
+			Assert.assertEquals(actual_title, expected_title, "Title is correct");
+			
+
+			//Search for item
+			WebElement txtbx_search = driver.findElement(By.id("searchBox_Global"));
+			txtbx_search.sendKeys(PRODUCT);
+			
+			driver.findElement(By.id("search-submit-anchor")).click();
+			
+			//Check point
+			expected_title = "Product Search";
+			actual_title = driver.getTitle();
+			Assert.assertEquals(actual_title, expected_title, "Product search Title is correct");
+			
+			
+			//a[contains(@rel,'#product-title-' )]
+			
+			//Fetch all the links Title
+			List<WebElement> collection_product_links = 
+					driver.findElements(By.xpath("//a[contains(@rel,'#product-title-')]"));
+			
+			
+			for(int i = 0; i<collection_product_links.size();i++) {
+				String temp = collection_product_links.get(i).getText();
+				
+				//(temp.toLowerCase().contains(PRODUCT.toLowerCase()))/
+				
+				if (temp.contains(PRODUCT)){
+					Assert.assertTrue(true, PRODUCT +" is displayed on product title Product Title: " + temp);
+				}else {
+					Assert.assertTrue(false, PRODUCT + " is not displayed on product title Product Title: " + temp);
+		
+				}
+				
+			}
+			////div[@class = 'prod-number-container vpn_breakword']/span[2]/
+		}catch(Exception e) {
+			Assert.assertFalse(false, "Exception thrown. Exception: " + e.toString());;	
+		}
+
+		
+
+		
+		
+	}
+	
+	//@Test
 	public void AutomateMegaMenuStucture_ForLoop() throws InterruptedException {
 		//try {
 
@@ -104,7 +170,7 @@ public class HandlingMegaMenu {
 	//	}
 	}
 	
-	//@Test
+	@Test
 	public void AutomateMegaMenuStucture_UsingXPATH() {
 		try {
 
@@ -169,5 +235,54 @@ public class HandlingMegaMenu {
 			LOG.fatal("Exception Caught : " +  e.getStackTrace());
 			e.printStackTrace();
 		}
+	}
+
+	//@Test
+	public void HandleAjaxSearch() {
+		String PRODUCT = "HP";
+		
+		//Browser Set Up and navigate
+		System.setProperty("webdriver.chrome.driver", "E:\\_AkashStuff\\Automation\\dependencies\\chromedriver\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("https://ca.ingrammicro.com/");//difference btw and naviogate/get
+		Reporter.log("Browser opned and navigated",true);
+		
+		//Checkpoint
+		String expected_title = "Computer and Technology Products - Services for Business to Business Needs - Ingram Micro";
+		String actual_title = driver.getTitle();
+		Assert.assertEquals(actual_title, expected_title, "Title is correct");
+		
+		//Soft Assert-Used only in cases where checkpointy failure has an
+		//impact on the subsequent steps execution
+		SoftAssert obj = new SoftAssert();
+		obj.assertEquals(actual_title, expected_title, "Title is correct");
+		
+		//Search for item
+		WebElement searchbox = driver.findElement(By.id("searchBox_Global"));;
+		searchbox.sendKeys(PRODUCT);
+		
+		//Sync-wait for pop up to appear
+		WebElement search_ajax_list = driver.findElement(By.id("live-search"));
+
+		WebDriverWait wait = new WebDriverWait(driver, 60) ;
+		wait.until(ExpectedConditions.visibilityOf(search_ajax_list));
+		
+		//Validate ajax pop with search list items is displayed
+		boolean expected = search_ajax_list.isDisplayed();
+		boolean actual = true;
+		Assert.assertEquals(expected, actual,"List did not appear"); 
+		
+		//Fetch all the items in the list and check their text
+		List<WebElement> collection = driver.findElements(By.xpath("//div[@id = 'live-search']//tr"));
+		for(int i=0;i<collection.size();i++) {
+			SoftAssert softassert = new SoftAssert();
+			softassert.assertEquals(collection.get(i).getText(), PRODUCT);
+		}
+		
+
+		
+		
+
 	}
 }
